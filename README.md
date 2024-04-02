@@ -1,30 +1,53 @@
-TO DO:
-- find pgp key
-- find the location where this photo was taken
+# Image Investigation Tool
 
+This Python script provides a versatile tool for image analysis, focusing on extracting GPS data from images and searching for embedded PGP public keys within image files. It leverages the PIL library to handle images and extract EXIF metadata, including GPS information, and uses basic OS operations to search for text patterns indicative of PGP keys.
 
-Usage
+## Features
+
+- **GPS Data Extraction**: Extract and display GPS coordinates embedded in the image's EXIF metadata. It converts the coordinates to decimal degrees and generates a Google Maps URL for easy location viewing.
+- **PGP Public Key Search**: Search for PGP public keys embedded within the image file by scanning the text output of the `strings` command.
+
+## Requirements
+
+- Python 3
+- PIL (Pillow)
+- chardet
+
+## Installation
+
+Ensure you have Python 3 installed on your system. Then, install the required Python packages:
+
 ```bash
-$>  image -map image.jpeg
-Lat/Lon:	(13.731) / (-1.1373)
-
-$> image -steg image.jpeg
------BEGIN PGP PUBLIC KEY BLOCK-----
-Version: 01
-
-mQENBGIwpy4BCACFayWXCgHH2QqXkicbqD1ZlMUALpyGxDFiWh1SErFUPJOO/CgU
-2688bAd26kxDSGShiL9YUOQJ6MS+zJ0KlBkeKPoQlPHRBVpH7vjcRbZNgDxd82uE
-7mhM6AH+W3fAim/PhU3lm661UGMCHM3YLupa/N0Dhhmfimtg+0AimCoXk6Q6WJxg
-ao8XY1Wqacd2L0ssASY5EkMahNgtX0Ri8snbTlImd5Jq/sC4buZq96IlxyhtX0ew
-zD/md0U++8SxG9+gi+uuImqV8Wq1YHvJH5BtIbfcNG9V00+03ikEX9tppKxCkhzx
-9rSqvyH6Uirs3FVhFtoXUSg8IeYgSH6p5tsVABEBAAG0CDAxQDAxLjAxiQEcBBAB
-AgAGBQJiMKcuAAoJEAJuInmYDhhbO3gIAITZhEtLBj524y1oeBKI5fZDwgCQum6B
-D9ZaUq1+dI98HsiRAiUqw1YbuJQgeUVGCmqXeC3E7VTPCPZsaCLfWWZVeosRIqB8
-PwGxcY6vXHYR4S6T8rHwsNASw+Vo2pmQIGn4tABmtyappqJbwSz+5yg73DjYXiX/
-e/f6i9nrFFsfMjjKd71cAyHjV8u0z7fGDXpR22vo7CdloXMxsZRyHjd/4ofUgvu0
-6hWYG2zBWTXpwaYRU9u1NCr1gfKnukm8gbILSSgjr8pQ3OLWHleJXc0sCEJFKSbg
-+I0KJP7Ccrxy0MaKYk0T0tYbBrvqQCzXqzAqcjn+1GoDDS1J8WBJopM=
-=N8hc
------END PGP PUBLIC KEY BLOCK-----
-$>
+pip install Pillow chardet
 ```
+
+## Usage
+
+The tool provides two main functionalities: extracting GPS data and searching for PGP public keys.
+
+### Extracting GPS Data
+
+To extract GPS data from an image and convert it to a readable format, use:
+```bash
+$> python3 image.py -map image.jpeg
+GPS Info:
+#Latitude: 37.774929
+#Longitude: -122.419416
+#Google Maps URL: https://www.google.com/maps/place/37.774929,-122.419416
+```
+This command prints the latitude and longitude in both DMS (Degrees, Minutes, Seconds) and decimal degrees format, along with a direct Google Maps URL.
+
+### Searching for PGP Public Keys
+
+To search for PGP public keys within an image file, use:
+```bash
+$> python3 image.py -steg image.jpeg
+#-----BEGIN PGP PUBLIC KEY BLOCK-----
+#Version: 01
+#
+#lorem ipsum dolor sit amet, consectetur adipiscing elit.
+#
+#-----END PGP PUBLIC KEY BLOCK-----
+```
+If a PGP public key block is found, it is printed to the console.
+
