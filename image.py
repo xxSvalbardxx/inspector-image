@@ -98,6 +98,8 @@ def search_steg(image_path):
                     if "-----END PGP PUBLIC KEY BLOCK-----" in line:
                         break
                 break
+            else:
+                print(line)
         else:
             print("\033[91m[-] PGP PUBLIC KEY not found\033[0m")
 
